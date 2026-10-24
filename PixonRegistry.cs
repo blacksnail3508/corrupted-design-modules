@@ -553,6 +553,10 @@ namespace Pixon.Registry
         private string search = string.Empty;
         private Vector2 scroll;
 
+        // Hashing every installed file and probing every assembly is far too slow for OnGUI, so the result is kept until something changes it.
+        private readonly Dictionary<string, ModuleState> states = new();
+        private readonly Dictionary<string, List<RegistryRequirement>> missing = new();
+
         [MenuItem("Pixon/Registry")]
         public static void Open() => GetWindow<PixonRegistryWindow>("Pixon Registry").Show();
 
@@ -560,8 +564,29 @@ namespace Pixon.Registry
         {
             url = PixonCatalogSource.Url;
             token = PixonCatalogSource.Token;
-            installLock = PixonInstaller.ReadLock(PixonRegistryController.ProjectRoot);
+            ReloadState();
         }
+
+        // Local edits made while the window was in the background show up when it is focused again.
+        private void OnFocus() => ReloadState();
+
+        private void ReloadState()
+        {
+            var root = PixonRegistryController.ProjectRoot;
+            installLock = PixonInstaller.ReadLock(root);
+            states.Clear();
+            missing.Clear();
+            if (catalog == null) return;
+
+            foreach (var module in catalog.modules)
+            {
+                states[module.id] = PixonInstaller.GetState(root, module, installLock);
+                missing[module.id] = PixonInstaller.MissingRequirements(module, PixonInstaller.TypeExists);
+            }
+            Repaint();
+        }
+
+        private ModuleState StateOf(RegistryModule module) => states.TryGetValue(module.id, out var state) ? state : ModuleState.NotInstalled;
 
         private void OnGUI()
         {
@@ -590,14 +615,14 @@ namespace Pixon.Registry
             {
                 if (GUILayout.Button("Refresh")) Run(Refresh);
                 using (new EditorGUI.DisabledScope(catalog == null))
-                    if (GUILayout.Button("Install all missing")) Run(() => InstallMany(catalog.modules.Where(m => PixonInstaller.GetState(PixonRegistryController.ProjectRoot, m, installLock) == ModuleState.NotInstalled).Select(m => m.id)));
+                    if (GUILayout.Button("Install all missing")) Run(() => InstallMany(catalog.modules.Where(m => StateOf(m) == ModuleState.NotInstalled).Select(m => m.id)));
             }
         }
 
         private void DrawModule(RegistryModule module)
         {
             var root = PixonRegistryController.ProjectRoot;
-            var state = PixonInstaller.GetState(root, module, installLock);
+            var state = StateOf(module);
             var installed = installLock.Find(module.id);
 
             using (new EditorGUILayout.VerticalScope(EditorStyles.helpBox))
@@ -609,7 +634,7 @@ namespace Pixon.Registry
                     EditorGUILayout.LabelField(StateText(state, installed), EditorStyles.miniLabel);
                     if (!string.IsNullOrEmpty(module.description)) EditorGUILayout.LabelField(module.description, EditorStyles.wordWrappedMiniLabel);
                     if (module.dependencies.Length > 0) EditorGUILayout.LabelField("Needs: " + string.Join(", ", module.dependencies), EditorStyles.miniLabel);
-                    foreach (var requirement in PixonInstaller.MissingRequirements(module, PixonInstaller.TypeExists))
+                    foreach (var requirement in missing.TryGetValue(module.id, out var absent) ? absent : new List<RegistryRequirement>())
                         EditorGUILayout.LabelField($"Missing {requirement.name}: {requirement.hint}", EditorStyles.miniBoldLabel);
                 }
 
@@ -618,7 +643,7 @@ namespace Pixon.Registry
                     if (state == ModuleState.NotInstalled && GUILayout.Button("Install")) Run(() => InstallMany(new[] { module.id }));
                     if (state == ModuleState.UpdateAvailable && GUILayout.Button("Update")) Run(() => InstallMany(new[] { module.id }));
                     if (state == ModuleState.Modified && GUILayout.Button("Reinstall")) Run(() => InstallMany(new[] { module.id }, "Local edits in this module will be moved to Library/PixonTrash."));
-                    if (state == ModuleState.Unmanaged && GUILayout.Button("Adopt")) Run(() => { PixonInstaller.Adopt(root, module); installLock = PixonInstaller.ReadLock(root); status = $"Adopted {module.id}."; });
+                    if (state == ModuleState.Unmanaged && GUILayout.Button("Adopt")) Run(() => { PixonInstaller.Adopt(root, module); ReloadState(); status = $"Adopted {module.id}."; });
                     if (state == ModuleState.Unmanaged && GUILayout.Button("Replace")) Run(() => InstallMany(new[] { module.id }, "The existing folder will be moved to Library/PixonTrash.", true));
                     if (installed != null && GUILayout.Button("Uninstall")) Run(() => UninstallOne(module.id));
                 }
@@ -640,7 +665,7 @@ namespace Pixon.Registry
             PixonCatalogSource.Url = url;
             PixonCatalogSource.Token = token;
             catalog = PixonCatalogSource.LoadCatalog(url, token);
-            installLock = PixonInstaller.ReadLock(PixonRegistryController.ProjectRoot);
+            ReloadState();
             status = $"{catalog.modules.Length} modules in the catalog.";
         }
 
@@ -648,7 +673,7 @@ namespace Pixon.Registry
         {
             var list = ids.ToList();
             var plan = PixonRegistryController.PlanInstall(catalog, list, out var packages);
-            var toInstall = plan.Where(m => PixonInstaller.GetState(PixonRegistryController.ProjectRoot, m, installLock) != ModuleState.Installed).ToList();
+            var toInstall = plan.Where(m => StateOf(m) != ModuleState.Installed).ToList();
             if (toInstall.Count == 0) return;
 
             var message = string.Join("\n", toInstall.Select(m => $"{m.id} {m.version}"))
@@ -657,7 +682,7 @@ namespace Pixon.Registry
             if (!EditorUtility.DisplayDialog("Install", message, "Install", "Cancel")) return;
 
             var done = PixonRegistryController.Install(url, token, catalog, list, replaceUnmanaged);
-            installLock = PixonInstaller.ReadLock(PixonRegistryController.ProjectRoot);
+            ReloadState();
             status = "Installed: " + string.Join(", ", done);
         }
 
@@ -672,7 +697,7 @@ namespace Pixon.Registry
             if (!EditorUtility.DisplayDialog("Uninstall", $"Move {id} to Library/PixonTrash? Code that uses it will stop compiling.", "Uninstall", "Cancel")) return;
 
             var leftover = PixonRegistryController.Uninstall(id);
-            installLock = PixonInstaller.ReadLock(PixonRegistryController.ProjectRoot);
+            ReloadState();
             status = leftover.Count == 0 ? $"Uninstalled {id}." : $"Uninstalled {id}; {leftover.Count} files that were not part of it stay in the folder.";
         }
 

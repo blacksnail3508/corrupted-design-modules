@@ -67,7 +67,7 @@
         {
             "id": "Core",
             "name": "Game Core",
-            "version": "1.0.0",
+            "version": "1.0.1",
             "description": "GameService (the service locator and level flow), shared game types, and the GameScreens hooks the game's UI layer fills in. Installing it brings the modules GameService talks to.",
             "dependencies": [],
             "companions": [
@@ -87,9 +87,9 @@
             ],
             "installPath": "Assets/0.GAME/0.Pixon/15.Pixon.Core",
             "extraPaths": [],
-            "zip": "modules/Core-1.0.0.zip",
-            "sha256": "78268b5e78d8195c5ca581bf28b7bafdc7f5ded3cfa3136b66945718f1143304",
-            "size": 6151
+            "zip": "modules/Core-1.0.1.zip",
+            "sha256": "c6f7bf31d1f4713bf704adb0930f4d77dc91520faeb1d39e7c166683d214733f",
+            "size": 6149
         },
         {
             "id": "DataManager",
@@ -242,7 +242,7 @@
         {
             "id": "Hub",
             "name": "Pixon Hub",
-            "version": "1.0.0",
+            "version": "1.0.1",
             "description": "Pixon Hub window (modules, plugins, tools, create menu, health) and the Pixon Registry installer.",
             "dependencies": [],
             "companions": [],
@@ -250,9 +250,9 @@
             "packages": [],
             "installPath": "Assets/0.GAME/0.Pixon/Editor/Hub",
             "extraPaths": [],
-            "zip": "modules/Hub-1.0.0.zip",
-            "sha256": "d653de86e4e6aba4e82fa1bc2cadbe9c6dcf1371fed6037e0f974be8d4c57676",
-            "size": 42146
+            "zip": "modules/Hub-1.0.1.zip",
+            "sha256": "3fab11c7169152cc53b602a7c26b9342534a7d2d4d1b60532a545fb5f0a51e2b",
+            "size": 42416
         },
         {
             "id": "IAP",
@@ -429,7 +429,7 @@
         {
             "id": "TemplateKit",
             "name": "Template UI Kit",
-            "version": "1.0.0",
+            "version": "1.0.1",
             "description": "The Sand Around UI kit and sound effects: popups, views, shared prefabs, fonts, sprites, audio library and sfx, touch vfx. Needs the Pixon modules it is built on. After installing, register the popups and views in Addressables with address = type FullName (Pixon/UI tools lists the ones that are missing).",
             "dependencies": [
                 "AdsProvider",
@@ -503,9 +503,9 @@
                 "Assets/VFX",
                 "Assets/Sand Around"
             ],
-            "zip": "modules/TemplateKit-1.0.0.zip",
-            "sha256": "deeecb22adee8125e5906669e7592784d0f4d13fabb9dc603f51b714acd66a6f",
-            "size": 21297091
+            "zip": "modules/TemplateKit-1.0.1.zip",
+            "sha256": "3a1de4379f0b2a6055f73e6febab829cdee72d11af86a94c6c2608427cc7ca5b",
+            "size": 21297092
         },
         {
             "id": "UI",
