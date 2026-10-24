@@ -242,7 +242,7 @@
         {
             "id": "Hub",
             "name": "Pixon Hub",
-            "version": "1.0.1",
+            "version": "1.0.2",
             "description": "Pixon Hub window (modules, plugins, tools, create menu, health) and the Pixon Registry installer.",
             "dependencies": [],
             "companions": [],
@@ -250,9 +250,9 @@
             "packages": [],
             "installPath": "Assets/0.GAME/0.Pixon/Editor/Hub",
             "extraPaths": [],
-            "zip": "modules/Hub-1.0.1.zip",
-            "sha256": "3fab11c7169152cc53b602a7c26b9342534a7d2d4d1b60532a545fb5f0a51e2b",
-            "size": 42416
+            "zip": "modules/Hub-1.0.2.zip",
+            "sha256": "6eed161920caef1d4103e43209c47dba52097dc1904421889e6bd934d790dfc2",
+            "size": 43703
         },
         {
             "id": "IAP",

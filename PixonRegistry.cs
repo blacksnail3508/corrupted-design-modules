@@ -542,10 +542,14 @@ namespace Pixon.Registry
         }
     }
 
-    /// <summary>The Pixon/Registry window: every module in the catalog with its state and Install / Update / Uninstall buttons.</summary>
-    public class PixonRegistryWindow : EditorWindow
+    /// <summary>Every module in the catalog with its state and Install / Update / Uninstall buttons; drawn by the Registry window and by the Hub's Registry tab.</summary>
+    public class PixonRegistryView
     {
-        private RegistryCatalog catalog;
+        // Kept across rebuilds so switching Hub tabs does not lose the loaded catalog.
+        private static RegistryCatalog cachedCatalog;
+
+        private readonly Action repaint;
+        private RegistryCatalog catalog = cachedCatalog;
         private InstallLock installLock = new();
         private string url;
         private string token;
@@ -557,20 +561,17 @@ namespace Pixon.Registry
         private readonly Dictionary<string, ModuleState> states = new();
         private readonly Dictionary<string, List<RegistryRequirement>> missing = new();
 
-        [MenuItem("Pixon/Registry")]
-        public static void Open() => GetWindow<PixonRegistryWindow>("Pixon Registry").Show();
-
-        private void OnEnable()
+        public PixonRegistryView(Action repaint)
         {
+            this.repaint = repaint;
             url = PixonCatalogSource.Url;
             token = PixonCatalogSource.Token;
             ReloadState();
         }
 
-        // Local edits made while the window was in the background show up when it is focused again.
-        private void OnFocus() => ReloadState();
+        /// <summary>Re-reads the lock and rechecks every module, so local edits made in the background show up.</summary>
 
-        private void ReloadState()
+        public void ReloadState()
         {
             var root = PixonRegistryController.ProjectRoot;
             installLock = PixonInstaller.ReadLock(root);
@@ -583,12 +584,12 @@ namespace Pixon.Registry
                 states[module.id] = PixonInstaller.GetState(root, module, installLock);
                 missing[module.id] = PixonInstaller.MissingRequirements(module, PixonInstaller.TypeExists);
             }
-            Repaint();
+            repaint();
         }
 
         private ModuleState StateOf(RegistryModule module) => states.TryGetValue(module.id, out var state) ? state : ModuleState.NotInstalled;
 
-        private void OnGUI()
+        public void Draw()
         {
             DrawSource();
             if (catalog == null)
@@ -664,7 +665,7 @@ namespace Pixon.Registry
         {
             PixonCatalogSource.Url = url;
             PixonCatalogSource.Token = token;
-            catalog = PixonCatalogSource.LoadCatalog(url, token);
+            catalog = cachedCatalog = PixonCatalogSource.LoadCatalog(url, token);
             ReloadState();
             status = $"{catalog.modules.Length} modules in the catalog.";
         }
@@ -710,7 +711,33 @@ namespace Pixon.Registry
                 status = e.Message;
                 EditorUtility.DisplayDialog("Pixon Registry", e.Message, "OK");
             }
-            Repaint();
+            repaint();
         }
+    }
+
+    /// <summary>The standalone Pixon/Registry window, used while the project has no Hub; once the Hub is installed the menu opens its Registry tab instead.</summary>
+    public class PixonRegistryWindow : EditorWindow
+    {
+        private PixonRegistryView view;
+
+        [MenuItem("Pixon/Registry")]
+        public static void Open()
+        {
+            // The Hub is optional here, so it is reached by name; when it exists everything lives in its Registry tab.
+            var hub = Type.GetType("Pixon.Hub.PixonHubWindow, Pixon.Hub.Editor");
+            var openTab = hub?.GetMethod("OpenTab", new[] { typeof(string) });
+            if (openTab != null)
+            {
+                openTab.Invoke(null, new object[] { "Registry" });
+                return;
+            }
+            GetWindow<PixonRegistryWindow>("Pixon Registry").Show();
+        }
+
+        private void OnEnable() => view = new PixonRegistryView(Repaint);
+
+        private void OnFocus() => view?.ReloadState();
+
+        private void OnGUI() => view.Draw();
     }
 }
