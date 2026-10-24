@@ -1,0 +1,606 @@
+{
+    "schema": 1,
+    "modules": [
+        {
+            "id": "AdsProvider",
+            "name": "Ads Provider",
+            "version": "1.0.0",
+            "description": "AdsProvider facade with a pluggable IAdNetwork; ships a simulated network so ad flows work without an SDK.",
+            "dependencies": [
+                "Core",
+                "RemoteConfig"
+            ],
+            "companions": [],
+            "requires": [],
+            "packages": [],
+            "installPath": "Assets/0.GAME/0.Pixon/11.Pixon.AdsProvider",
+            "extraPaths": [],
+            "zip": "modules/AdsProvider-1.0.0.zip",
+            "sha256": "0a3c0c148da81881dafbab51fa029e9774d3fb7e7c94e0eed7c24ca36ac23337",
+            "size": 3473
+        },
+        {
+            "id": "AnalyticAdapter",
+            "name": "Analytic Adapter",
+            "version": "1.0.0",
+            "description": "AnalyticAdapter facade with a pluggable IAnalyticSink; logs only until a real SDK sink is assigned.",
+            "dependencies": [],
+            "companions": [],
+            "requires": [],
+            "packages": [],
+            "installPath": "Assets/0.GAME/0.Pixon/8.Pixon.AnalyticAdapter",
+            "extraPaths": [],
+            "zip": "modules/AnalyticAdapter-1.0.0.zip",
+            "sha256": "f6301fea9009fb5cdfc8c3cb6a70100f3f2ac95248a0ba0560a565daaf33fe0e",
+            "size": 2673
+        },
+        {
+            "id": "Audio",
+            "name": "Audio",
+            "version": "1.0.0",
+            "description": "AudioManager, AudioLibrary, SoundID tables, haptic facade.",
+            "dependencies": [
+                "Core",
+                "DataManager",
+                "Debug"
+            ],
+            "companions": [],
+            "requires": [
+                {
+                    "name": "Odin Inspector",
+                    "probe": "Sirenix.OdinInspector.ShowInInspectorAttribute",
+                    "hint": "import Odin Inspector from the Asset Store"
+                }
+            ],
+            "packages": [
+                {
+                    "id": "com.unity.render-pipelines.core",
+                    "version": "17.0.4"
+                }
+            ],
+            "installPath": "Assets/0.GAME/0.Pixon/2.Pixon.Audio",
+            "extraPaths": [],
+            "zip": "modules/Audio-1.0.0.zip",
+            "sha256": "8473df26d4beaf3b14890b11dc3c813d51b3bd768439c1155f51f04eb0ad69c8",
+            "size": 9947
+        },
+        {
+            "id": "Core",
+            "name": "Game Core",
+            "version": "1.0.0",
+            "description": "GameService (the service locator and level flow), shared game types, and the GameScreens hooks the game's UI layer fills in. Installing it brings the modules GameService talks to.",
+            "dependencies": [],
+            "companions": [
+                "Audio",
+                "DataManager",
+                "RemoteConfig",
+                "SceneManager",
+                "Stamina",
+                "UI"
+            ],
+            "requires": [],
+            "packages": [
+                {
+                    "id": "com.unity.nuget.newtonsoft-json",
+                    "version": "3.2.1"
+                }
+            ],
+            "installPath": "Assets/0.GAME/0.Pixon/15.Pixon.Core",
+            "extraPaths": [],
+            "zip": "modules/Core-1.0.0.zip",
+            "sha256": "78268b5e78d8195c5ca581bf28b7bafdc7f5ded3cfa3136b66945718f1143304",
+            "size": 6151
+        },
+        {
+            "id": "DataManager",
+            "name": "DataManager",
+            "version": "1.0.0",
+            "description": "Player data: Vault storage (encrypted JSON/prefs), Wallet, PlayerDataManager, game event collection.",
+            "dependencies": [
+                "AnalyticAdapter",
+                "Core",
+                "Debug",
+                "Delay",
+                "Observer",
+                "Utils"
+            ],
+            "companions": [
+                "LevelSystem",
+                "RemoteConfig"
+            ],
+            "requires": [
+                {
+                    "name": "Odin Inspector",
+                    "probe": "Sirenix.OdinInspector.ShowInInspectorAttribute",
+                    "hint": "import Odin Inspector from the Asset Store"
+                }
+            ],
+            "packages": [
+                {
+                    "id": "com.unity.nuget.newtonsoft-json",
+                    "version": "3.2.1"
+                }
+            ],
+            "installPath": "Assets/0.GAME/0.Pixon/0.Pixon.DataManager",
+            "extraPaths": [],
+            "zip": "modules/DataManager-1.0.0.zip",
+            "sha256": "2ab5c25d04f5750e0987e92ea798bc4c676218d953415e4da95e114f56819131",
+            "size": 78058
+        },
+        {
+            "id": "Debug",
+            "name": "Debug",
+            "version": "1.0.0",
+            "description": "Bug logger and in-game debug options (SRDebugger).",
+            "dependencies": [],
+            "companions": [],
+            "requires": [
+                {
+                    "name": "Odin Inspector",
+                    "probe": "Sirenix.OdinInspector.ShowInInspectorAttribute",
+                    "hint": "import Odin Inspector from the Asset Store"
+                }
+            ],
+            "packages": [],
+            "installPath": "Assets/0.GAME/0.Pixon/3.Pixon.Debug",
+            "extraPaths": [],
+            "zip": "modules/Debug-1.0.0.zip",
+            "sha256": "0aea6a52fd2108a10051780d7c6c34a34b0b5a301718d96b7c74e9afeec3336b",
+            "size": 1894
+        },
+        {
+            "id": "Define",
+            "name": "Define",
+            "version": "1.0.0",
+            "description": "Scripting define symbols manager window and data asset.",
+            "dependencies": [],
+            "companions": [],
+            "requires": [],
+            "packages": [],
+            "installPath": "Assets/0.GAME/0.Pixon/13.Pixon.Define",
+            "extraPaths": [],
+            "zip": "modules/Define-1.0.0.zip",
+            "sha256": "f2400dcde77caaafb18e561fc5e531bdf49e04648d510774fc1742a3dd85f0cb",
+            "size": 4037
+        },
+        {
+            "id": "Delay",
+            "name": "Delay",
+            "version": "1.0.0",
+            "description": "Delay.Call / Clock / CoroutineScheduler helpers.",
+            "dependencies": [],
+            "companions": [],
+            "requires": [],
+            "packages": [],
+            "installPath": "Assets/0.GAME/0.Pixon/12.Pixon.Delay",
+            "extraPaths": [],
+            "zip": "modules/Delay-1.0.0.zip",
+            "sha256": "0526ec23a808e1bf2a1c6f535c15894db9789c482215bbb52f8d7f2063be363b",
+            "size": 4620
+        },
+        {
+            "id": "Features",
+            "name": "Features",
+            "version": "1.0.0",
+            "description": "FeatureManager + FeatureScheduler: timed/limited-time game features with persistence.",
+            "dependencies": [
+                "Core",
+                "Debug",
+                "Delay",
+                "Observer",
+                "Utils"
+            ],
+            "companions": [],
+            "requires": [
+                {
+                    "name": "Odin Inspector",
+                    "probe": "Sirenix.OdinInspector.ShowInInspectorAttribute",
+                    "hint": "import Odin Inspector from the Asset Store"
+                }
+            ],
+            "packages": [],
+            "installPath": "Assets/0.GAME/0.Pixon/4.Pixon.Features",
+            "extraPaths": [],
+            "zip": "modules/Features-1.0.0.zip",
+            "sha256": "4663bd7b73fa88fc58d5b12cb1e0bcf9d0a00b5b8ae7356502d6dc8bacd3d061",
+            "size": 15658
+        },
+        {
+            "id": "GMTool",
+            "name": "GM Tool",
+            "version": "2.0.0",
+            "description": "In-game GM tool: tabbed cheat panel (resources, level, popups, remote config, logs, system, [GMAction] methods). Opens with F10, a four-finger tap or the floating GM button. Uses no define: it is gated at run time (Application.isEditor, Debug.isDebugBuild or a tester login), so it works in development builds without any symbol.",
+            "dependencies": [
+                "AdsProvider",
+                "Core",
+                "DataManager",
+                "Debug",
+                "LevelSystem",
+                "Observer",
+                "RemoteConfig",
+                "Stamina",
+                "UI"
+            ],
+            "companions": [],
+            "requires": [],
+            "packages": [
+                {
+                    "id": "com.unity.nuget.newtonsoft-json",
+                    "version": "3.2.1"
+                },
+                {
+                    "id": "com.unity.inputsystem",
+                    "version": "1.19.0"
+                }
+            ],
+            "installPath": "Assets/0.GAME/0.Pixon/18.Pixon.GMTool",
+            "extraPaths": [],
+            "zip": "modules/GMTool-2.0.0.zip",
+            "sha256": "fc54b62f81960e6011e45c96aad5afaa5d8ac641daa91b91bde7531edd264e50",
+            "size": 23373
+        },
+        {
+            "id": "Hub",
+            "name": "Pixon Hub",
+            "version": "1.0.0",
+            "description": "Pixon Hub window (modules, plugins, tools, create menu, health) and the Pixon Registry installer.",
+            "dependencies": [],
+            "companions": [],
+            "requires": [],
+            "packages": [],
+            "installPath": "Assets/0.GAME/0.Pixon/Editor/Hub",
+            "extraPaths": [],
+            "zip": "modules/Hub-1.0.0.zip",
+            "sha256": "d653de86e4e6aba4e82fa1bc2cadbe9c6dcf1371fed6037e0f974be8d4c57676",
+            "size": 42146
+        },
+        {
+            "id": "IAP",
+            "name": "IAP",
+            "version": "1.0.0",
+            "description": "In-app purchase controller, shop catalogue and service, reward granting (Unity Purchasing 5).",
+            "dependencies": [
+                "AnalyticAdapter",
+                "Core",
+                "DataManager",
+                "Delay",
+                "Observer",
+                "Stamina",
+                "UI"
+            ],
+            "companions": [],
+            "requires": [],
+            "packages": [
+                {
+                    "id": "com.unity.purchasing",
+                    "version": "5.3.0"
+                },
+                {
+                    "id": "com.cysharp.unitask",
+                    "version": "https://github.com/Cysharp/UniTask.git?path=src/UniTask/Assets/Plugins/UniTask#2.5.10"
+                }
+            ],
+            "installPath": "Assets/0.GAME/0.Pixon/14.Pixon.IAP",
+            "extraPaths": [],
+            "zip": "modules/IAP-1.0.0.zip",
+            "sha256": "558837fe76210080c92c027ec03fd9bd2ce3286366a0a2b4f390441b5a228a89",
+            "size": 24684
+        },
+        {
+            "id": "LevelSystem",
+            "name": "LevelSystem",
+            "version": "1.0.0",
+            "description": "Level progression, looping, played-level tracking, remote level bundles.",
+            "dependencies": [
+                "DataManager",
+                "Debug",
+                "RemoteConfig"
+            ],
+            "companions": [],
+            "requires": [
+                {
+                    "name": "Odin Inspector",
+                    "probe": "Sirenix.OdinInspector.ShowInInspectorAttribute",
+                    "hint": "import Odin Inspector from the Asset Store"
+                }
+            ],
+            "packages": [
+                {
+                    "id": "com.unity.nuget.newtonsoft-json",
+                    "version": "3.2.1"
+                }
+            ],
+            "installPath": "Assets/0.GAME/0.Pixon/10.Pixon.LevelSystem",
+            "extraPaths": [],
+            "zip": "modules/LevelSystem-1.0.0.zip",
+            "sha256": "a3a9c6377ba99f2440ba8ad658a5dcebcdbddd3754a17d8c9f16fb35d3d49fbe",
+            "size": 6428
+        },
+        {
+            "id": "Logo",
+            "name": "Logo",
+            "version": "1.0.0",
+            "description": "Pixon splash logo assets.",
+            "dependencies": [],
+            "companions": [],
+            "requires": [],
+            "packages": [],
+            "installPath": "Assets/0.GAME/0.Pixon/00.Logo",
+            "extraPaths": [],
+            "zip": "modules/Logo-1.0.0.zip",
+            "sha256": "3046e3df896f44fee37add330805530faff2e056c79b54dbbd4c5b60dd95d0cf",
+            "size": 52082
+        },
+        {
+            "id": "Observer",
+            "name": "Observer",
+            "version": "1.0.0",
+            "description": "EventService: typed GameEvent bus (AddListener / Raise).",
+            "dependencies": [],
+            "companions": [],
+            "requires": [
+                {
+                    "name": "Odin Inspector",
+                    "probe": "Sirenix.OdinInspector.ShowInInspectorAttribute",
+                    "hint": "import Odin Inspector from the Asset Store"
+                }
+            ],
+            "packages": [],
+            "installPath": "Assets/0.GAME/0.Pixon/7.Pixon.Observer",
+            "extraPaths": [],
+            "zip": "modules/Observer-1.0.0.zip",
+            "sha256": "7985ed46a3d4b736417d17e17a769f9fbf6f07d00597895b5691b55d175546ad",
+            "size": 8157
+        },
+        {
+            "id": "RemoteConfig",
+            "name": "RemoteConfig",
+            "version": "1.0.0",
+            "description": "ConfigCollection, typed remote entries, RemoteManager with pluggable RemoteFetcher.",
+            "dependencies": [
+                "DataManager",
+                "Debug",
+                "Delay",
+                "Utils"
+            ],
+            "companions": [],
+            "requires": [],
+            "packages": [
+                {
+                    "id": "com.unity.nuget.newtonsoft-json",
+                    "version": "3.2.1"
+                }
+            ],
+            "installPath": "Assets/0.GAME/0.Pixon/9.Pixon.RemoteConfig",
+            "extraPaths": [],
+            "zip": "modules/RemoteConfig-1.0.0.zip",
+            "sha256": "6617a0af3b637730f022507595110c812b6fedbc3ccad7a136c0a9fdb3dde30c",
+            "size": 18717
+        },
+        {
+            "id": "SceneManager",
+            "name": "SceneManager",
+            "version": "1.0.0",
+            "description": "GameEntry boot flow and CustomSceneManager (Splash, Services, Lobby, Game).",
+            "dependencies": [
+                "Audio",
+                "Core",
+                "Debug",
+                "Delay",
+                "Features",
+                "Observer",
+                "UI"
+            ],
+            "companions": [],
+            "requires": [],
+            "packages": [],
+            "installPath": "Assets/0.GAME/0.Pixon/5.Pixon.SceneManager",
+            "extraPaths": [],
+            "zip": "modules/SceneManager-1.0.0.zip",
+            "sha256": "eafd20f4135f9ec111c065bf3f3a93e711c995f5da0aafdf211d479e9e42ade7",
+            "size": 5214
+        },
+        {
+            "id": "Stamina",
+            "name": "Stamina",
+            "version": "1.0.0",
+            "description": "Hearts/stamina with regeneration timer.",
+            "dependencies": [
+                "Debug",
+                "Delay",
+                "Features",
+                "Observer"
+            ],
+            "companions": [],
+            "requires": [
+                {
+                    "name": "Odin Inspector",
+                    "probe": "Sirenix.OdinInspector.ShowInInspectorAttribute",
+                    "hint": "import Odin Inspector from the Asset Store"
+                }
+            ],
+            "packages": [],
+            "installPath": "Assets/0.GAME/0.Pixon/6.Pixon.Stamina",
+            "extraPaths": [],
+            "zip": "modules/Stamina-1.0.0.zip",
+            "sha256": "23cb3f4436b8df907707113c5e9d7f393b9acfabd6fa1fbe37ea5a89620b5499",
+            "size": 5674
+        },
+        {
+            "id": "TemplateKit",
+            "name": "Template UI Kit",
+            "version": "1.0.0",
+            "description": "The Sand Around UI kit and sound effects: popups, views, shared prefabs, fonts, sprites, audio library and sfx, touch vfx. Needs the Pixon modules it is built on. After installing, register the popups and views in Addressables with address = type FullName (Pixon/UI tools lists the ones that are missing).",
+            "dependencies": [
+                "AdsProvider",
+                "AnalyticAdapter",
+                "Audio",
+                "Core",
+                "DataManager",
+                "Debug",
+                "Delay",
+                "Features",
+                "IAP",
+                "LevelSystem",
+                "Observer",
+                "RemoteConfig",
+                "SceneManager",
+                "Stamina",
+                "UI",
+                "Utils",
+                "com.unity.uiextensions"
+            ],
+            "companions": [],
+            "requires": [
+                {
+                    "name": "Odin Inspector",
+                    "probe": "Sirenix.OdinInspector.ShowInInspectorAttribute",
+                    "hint": "import Odin Inspector from the Asset Store"
+                },
+                {
+                    "name": "DOTween",
+                    "probe": "DG.Tweening.DOTween",
+                    "hint": "import DOTween from the Asset Store (demigiant.com)"
+                },
+                {
+                    "name": "Spine Unity runtime",
+                    "probe": "Spine.Unity.SkeletonGraphic",
+                    "hint": "import the spine-unity runtime (esotericsoftware.com)"
+                }
+            ],
+            "packages": [
+                {
+                    "id": "com.unity.ugui",
+                    "version": "2.0.0"
+                },
+                {
+                    "id": "com.unity.addressables",
+                    "version": "2.9.1"
+                },
+                {
+                    "id": "com.unity.render-pipelines.core",
+                    "version": "17.0.4"
+                },
+                {
+                    "id": "com.unity.inputsystem",
+                    "version": "1.19.0"
+                },
+                {
+                    "id": "com.coffee.ui-particle",
+                    "version": "https://github.com/mob-sakai/ParticleEffectForUGUI.git#4.13.0"
+                },
+                {
+                    "id": "com.coffee.ui-effect",
+                    "version": "https://github.com/mob-sakai/UIEffect.git?path=Packages/src#5.9.0"
+                }
+            ],
+            "installPath": "Assets/0.GAME/3.UI",
+            "extraPaths": [
+                "Assets/0.GAME/4.Audio",
+                "Assets/0.GAME/5.VFX",
+                "Assets/1.SPRITES",
+                "Assets/2.Animations",
+                "Assets/VFX",
+                "Assets/Sand Around"
+            ],
+            "zip": "modules/TemplateKit-1.0.0.zip",
+            "sha256": "deeecb22adee8125e5906669e7592784d0f4d13fabb9dc603f51b714acd66a6f",
+            "size": 21297091
+        },
+        {
+            "id": "UI",
+            "name": "UI",
+            "version": "1.0.0",
+            "description": "UIManager, Window/Popup stack, buttons, reveal pipeline, UI animations, attractive-resource flow.",
+            "dependencies": [
+                "Audio",
+                "AnalyticAdapter",
+                "Core",
+                "Debug",
+                "Delay",
+                "Observer",
+                "com.unity.uiextensions"
+            ],
+            "companions": [],
+            "requires": [
+                {
+                    "name": "Odin Inspector",
+                    "probe": "Sirenix.OdinInspector.ShowInInspectorAttribute",
+                    "hint": "import Odin Inspector from the Asset Store"
+                },
+                {
+                    "name": "DOTween",
+                    "probe": "DG.Tweening.DOTween",
+                    "hint": "import DOTween from the Asset Store (demigiant.com)"
+                },
+                {
+                    "name": "Spine Unity runtime",
+                    "probe": "Spine.Unity.SkeletonGraphic",
+                    "hint": "import the spine-unity runtime (esotericsoftware.com)"
+                }
+            ],
+            "packages": [
+                {
+                    "id": "com.unity.ugui",
+                    "version": "2.0.0"
+                },
+                {
+                    "id": "com.unity.addressables",
+                    "version": "2.9.1"
+                },
+                {
+                    "id": "com.unity.inputsystem",
+                    "version": "1.19.0"
+                },
+                {
+                    "id": "com.coffee.ui-particle",
+                    "version": "https://github.com/mob-sakai/ParticleEffectForUGUI.git#4.13.0"
+                },
+                {
+                    "id": "com.coffee.ui-effect",
+                    "version": "https://github.com/mob-sakai/UIEffect.git?path=Packages/src#5.9.0"
+                }
+            ],
+            "installPath": "Assets/0.GAME/0.Pixon/1.Pixon.UI",
+            "extraPaths": [],
+            "zip": "modules/UI-1.0.0.zip",
+            "sha256": "c852e8e5e9bd77352a092c130260e058d84628a8b214e4f75238a4d58252e9a7",
+            "size": 44700
+        },
+        {
+            "id": "Utils",
+            "name": "Utils",
+            "version": "1.0.0",
+            "description": "TimeUtils, StringExtensions and ExtraUtilities: small helpers the other modules share.",
+            "dependencies": [],
+            "companions": [],
+            "requires": [],
+            "packages": [],
+            "installPath": "Assets/0.GAME/0.Pixon/16.Pixon.Utils",
+            "extraPaths": [],
+            "zip": "modules/Utils-1.0.0.zip",
+            "sha256": "35fcc7159b46265b9d35dda5f54c01767a0f83ab09081b6fbdceccba084579be",
+            "size": 5134
+        },
+        {
+            "id": "com.unity.uiextensions",
+            "name": "UI Extensions",
+            "version": "1.0.0",
+            "description": "Unity UI Extensions (scroll snap, reorderable lists, effects).",
+            "dependencies": [],
+            "companions": [],
+            "requires": [],
+            "packages": [
+                {
+                    "id": "com.unity.ugui",
+                    "version": "2.0.0"
+                }
+            ],
+            "installPath": "Assets/0.GAME/0.Pixon/com.unity.uiextensions",
+            "extraPaths": [],
+            "zip": "modules/com.unity.uiextensions-1.0.0.zip",
+            "sha256": "f708a1cef300af8085c0810b75de7cb040648a655b0b221bb301d56700d7c284",
+            "size": 475390
+        }
+    ]
+}
