@@ -10,8 +10,8 @@ using UnityEditor;
 using UnityEngine;
 using UnityEngine.Networking;
 
-// Self-contained on purpose: this single file is the whole Pixon installer, so dropping it into any project is enough to browse, install, update and remove Pixon modules.
-namespace Pixon.Registry
+// Self-contained on purpose: this single file is the whole CorruptedDesign installer, so dropping it into any project is enough to browse, install, update and remove CorruptedDesign modules.
+namespace CorruptedDesign.Registry
 {
     #region MODELS
     /// <summary>A third-party asset a module needs that cannot be shipped with it (Odin, DOTween, Spine...).</summary>
@@ -107,10 +107,10 @@ namespace Pixon.Registry
     #endregion
 
     /// <summary>Install, update and uninstall logic on plain files; takes the project root so tests can run it on a temp folder.</summary>
-    public static class PixonInstaller
+    public static class CorruptedDesignInstaller
     {
-        public const string LockFile = "ProjectSettings/PixonModules.lock.json";
-        public const string TrashFolder = "Library/PixonTrash";
+        public const string LockFile = "ProjectSettings/CorruptedDesignModules.lock.json";
+        public const string TrashFolder = "Library/CorruptedDesignTrash";
 
         #region LOCK
         public static InstallLock ReadLock(string root)
@@ -327,7 +327,7 @@ namespace Pixon.Registry
         public static List<string> Dependents(InstallLock installLock, IReadOnlyCollection<string> removing) =>
             installLock.modules.Where(m => !removing.Contains(m.id) && m.dependencies.Concat(m.companions ?? Array.Empty<string>()).Any(removing.Contains)).Select(m => m.id).ToList();
 
-        /// <summary>Moves a module's files to Library/PixonTrash and drops it from the lock; returns the files left behind because they were not part of the install.</summary>
+        /// <summary>Moves a module's files to Library/CorruptedDesignTrash and drops it from the lock; returns the files left behind because they were not part of the install.</summary>
         public static List<string> Uninstall(string root, string id)
         {
             var installLock = ReadLock(root);
@@ -381,12 +381,12 @@ namespace Pixon.Registry
     }
 
     /// <summary>Where the catalog and module zips are downloaded from: an http(s) URL (optionally with a GitHub token) or a local file.</summary>
-    public static class PixonCatalogSource
+    public static class CorruptedDesignCatalogSource
     {
-        public const string DefaultUrl = "https://raw.githubusercontent.com/blacksnail3508/pixon-modules/main/catalog.json";
+        public const string DefaultUrl = "https://raw.githubusercontent.com/blacksnail3508/corrupted-design-modules/main/catalog.json";
 
-        private const string UrlKey = "Pixon.Registry.Url";
-        private const string TokenKey = "Pixon.Registry.Token";
+        private const string UrlKey = "CorruptedDesign.Registry.Url";
+        private const string TokenKey = "CorruptedDesign.Registry.Token";
 
         public static string Url
         {
@@ -431,7 +431,7 @@ namespace Pixon.Registry
     }
 
     /// <summary>Runs a full install / update / uninstall request: resolves dependencies, checks requirements, downloads, writes and refreshes.</summary>
-    public static class PixonRegistryController
+    public static class CorruptedDesignRegistryController
     {
         private static readonly string Root = Path.GetDirectoryName(Application.dataPath);
 
@@ -449,10 +449,10 @@ namespace Pixon.Registry
             var wanted = ids.ToList();
             if (!wanted.Contains(HubId) && catalog.modules.Any(m => m.id == HubId)) wanted.Add(HubId);
 
-            var closure = PixonInstaller.Closure(catalog, wanted, out var missing);
+            var closure = CorruptedDesignInstaller.Closure(catalog, wanted, out var missing);
             if (missing.Count > 0) throw new InvalidOperationException("Not in the catalog: " + string.Join(", ", missing));
 
-            var absent = closure.SelectMany(m => PixonInstaller.MissingRequirements(m, PixonInstaller.TypeExists).Select(r => $"{m.id} needs {r.name}: {r.hint}")).ToList();
+            var absent = closure.SelectMany(m => CorruptedDesignInstaller.MissingRequirements(m, CorruptedDesignInstaller.TypeExists).Select(r => $"{m.id} needs {r.name}: {r.hint}")).ToList();
             if (absent.Count > 0) throw new InvalidOperationException("Install these first:\n" + string.Join("\n", absent));
 
             packages = closure.SelectMany(m => m.packages).ToList();
@@ -463,20 +463,20 @@ namespace Pixon.Registry
         public static List<string> Install(string catalogUrl, string token, RegistryCatalog catalog, IEnumerable<string> ids, bool replaceUnmanaged = false)
         {
             var closure = PlanInstall(catalog, ids, out var packages);
-            var installLock = PixonInstaller.ReadLock(Root);
+            var installLock = CorruptedDesignInstaller.ReadLock(Root);
             var done = new List<string>();
 
             foreach (var module in closure)
             {
-                var state = PixonInstaller.GetState(Root, module, installLock);
+                var state = CorruptedDesignInstaller.GetState(Root, module, installLock);
                 if (state == ModuleState.Installed) continue;
 
-                var zip = PixonCatalogSource.GetRelative(catalogUrl, token, module.zip);
-                PixonInstaller.Install(Root, module, zip, replaceUnmanaged);
+                var zip = CorruptedDesignCatalogSource.GetRelative(catalogUrl, token, module.zip);
+                CorruptedDesignInstaller.Install(Root, module, zip, replaceUnmanaged);
                 done.Add($"{module.id} {module.version}");
             }
 
-            PixonInstaller.EnsurePackages(Root, packages);
+            CorruptedDesignInstaller.EnsurePackages(Root, packages);
             AssetDatabase.Refresh();
 
             return done;
@@ -484,7 +484,7 @@ namespace Pixon.Registry
 
         public static List<string> Uninstall(string id)
         {
-            var leftover = PixonInstaller.Uninstall(Root, id);
+            var leftover = CorruptedDesignInstaller.Uninstall(Root, id);
             AssetDatabase.Refresh();
             return leftover;
         }
@@ -492,16 +492,16 @@ namespace Pixon.Registry
         // Once the Hub is installed it carries its own copy of this file, so the loose one is removed to keep a single menu entry.
         private static void RemoveLooseCopy()
         {
-            var own = AssetDatabase.FindAssets("PixonRegistry t:MonoScript").Select(AssetDatabase.GUIDToAssetPath).Where(p => p.EndsWith("/PixonRegistry.cs")).ToList();
-            var hub = PixonInstaller.ReadLock(Root).Find(HubId);
+            var own = AssetDatabase.FindAssets("CorruptedDesignRegistry t:MonoScript").Select(AssetDatabase.GUIDToAssetPath).Where(p => p.EndsWith("/CorruptedDesignRegistry.cs")).ToList();
+            var hub = CorruptedDesignInstaller.ReadLock(Root).Find(HubId);
             if (hub == null || own.Count < 2) return;
 
             foreach (var path in own.Where(p => !p.StartsWith(hub.installPath + "/", StringComparison.Ordinal))) AssetDatabase.DeleteAsset(path);
         }
     }
 
-    /// <summary>Batch mode entry point: <c>-executeMethod Pixon.Registry.PixonRegistryCli.Run -pixonCatalog URL -pixonAction status|install|uninstall [-pixonModule ID]</c>.</summary>
-    public static class PixonRegistryCli
+    /// <summary>Batch mode entry point: <c>-executeMethod CorruptedDesign.Registry.CorruptedDesignRegistryCli.Run -corrupteddesignCatalog URL -corrupteddesignAction status|install|uninstall [-corrupteddesignModule ID]</c>.</summary>
+    public static class CorruptedDesignRegistryCli
     {
         public static void Run()
         {
@@ -514,36 +514,36 @@ namespace Pixon.Registry
                     return i >= 0 && i + 1 < args.Length ? args[i + 1] : null;
                 }
 
-                var url = Arg("-pixonCatalog") ?? PixonCatalogSource.Url;
-                var token = Arg("-pixonToken") ?? PixonCatalogSource.Token;
-                var catalog = PixonCatalogSource.LoadCatalog(url, token);
-                var id = Arg("-pixonModule");
+                var url = Arg("-corrupteddesignCatalog") ?? CorruptedDesignCatalogSource.Url;
+                var token = Arg("-corrupteddesignToken") ?? CorruptedDesignCatalogSource.Token;
+                var catalog = CorruptedDesignCatalogSource.LoadCatalog(url, token);
+                var id = Arg("-corrupteddesignModule");
 
-                switch (Arg("-pixonAction") ?? "status")
+                switch (Arg("-corrupteddesignAction") ?? "status")
                 {
                     case "install":
-                        foreach (var line in PixonRegistryController.Install(url, token, catalog, id.Split(','))) Debug.Log("[PixonRegistry] installed " + line);
+                        foreach (var line in CorruptedDesignRegistryController.Install(url, token, catalog, id.Split(','))) Debug.Log("[CorruptedDesignRegistry] installed " + line);
                         break;
                     case "uninstall":
-                        Debug.Log($"[PixonRegistry] uninstalled {id}, {PixonRegistryController.Uninstall(id).Count} files left behind");
+                        Debug.Log($"[CorruptedDesignRegistry] uninstalled {id}, {CorruptedDesignRegistryController.Uninstall(id).Count} files left behind");
                         break;
                     default:
-                        var installLock = PixonInstaller.ReadLock(PixonRegistryController.ProjectRoot);
-                        foreach (var module in catalog.modules) Debug.Log($"[PixonRegistry] {module.id} {module.version} {PixonInstaller.GetState(PixonRegistryController.ProjectRoot, module, installLock)}");
+                        var installLock = CorruptedDesignInstaller.ReadLock(CorruptedDesignRegistryController.ProjectRoot);
+                        foreach (var module in catalog.modules) Debug.Log($"[CorruptedDesignRegistry] {module.id} {module.version} {CorruptedDesignInstaller.GetState(CorruptedDesignRegistryController.ProjectRoot, module, installLock)}");
                         break;
                 }
                 if (Application.isBatchMode) EditorApplication.Exit(0);
             }
             catch (Exception e)
             {
-                Debug.LogError("[PixonRegistry] " + e.Message);
+                Debug.LogError("[CorruptedDesignRegistry] " + e.Message);
                 if (Application.isBatchMode) EditorApplication.Exit(1);
             }
         }
     }
 
     /// <summary>Every module in the catalog with its state and Install / Update / Uninstall buttons; drawn by the Registry window and by the Hub's Registry tab.</summary>
-    public class PixonRegistryView
+    public class CorruptedDesignRegistryView
     {
         // Kept across rebuilds so switching Hub tabs does not lose the loaded catalog.
         private static RegistryCatalog cachedCatalog;
@@ -561,11 +561,11 @@ namespace Pixon.Registry
         private readonly Dictionary<string, ModuleState> states = new();
         private readonly Dictionary<string, List<RegistryRequirement>> missing = new();
 
-        public PixonRegistryView(Action repaint)
+        public CorruptedDesignRegistryView(Action repaint)
         {
             this.repaint = repaint;
-            url = PixonCatalogSource.Url;
-            token = PixonCatalogSource.Token;
+            url = CorruptedDesignCatalogSource.Url;
+            token = CorruptedDesignCatalogSource.Token;
             ReloadState();
         }
 
@@ -573,16 +573,16 @@ namespace Pixon.Registry
 
         public void ReloadState()
         {
-            var root = PixonRegistryController.ProjectRoot;
-            installLock = PixonInstaller.ReadLock(root);
+            var root = CorruptedDesignRegistryController.ProjectRoot;
+            installLock = CorruptedDesignInstaller.ReadLock(root);
             states.Clear();
             missing.Clear();
             if (catalog == null) return;
 
             foreach (var module in catalog.modules)
             {
-                states[module.id] = PixonInstaller.GetState(root, module, installLock);
-                missing[module.id] = PixonInstaller.MissingRequirements(module, PixonInstaller.TypeExists);
+                states[module.id] = CorruptedDesignInstaller.GetState(root, module, installLock);
+                missing[module.id] = CorruptedDesignInstaller.MissingRequirements(module, CorruptedDesignInstaller.TypeExists);
             }
             repaint();
         }
@@ -622,7 +622,7 @@ namespace Pixon.Registry
 
         private void DrawModule(RegistryModule module)
         {
-            var root = PixonRegistryController.ProjectRoot;
+            var root = CorruptedDesignRegistryController.ProjectRoot;
             var state = StateOf(module);
             var installed = installLock.Find(module.id);
 
@@ -643,9 +643,9 @@ namespace Pixon.Registry
                 {
                     if (state == ModuleState.NotInstalled && GUILayout.Button("Install")) Run(() => InstallMany(new[] { module.id }));
                     if (state == ModuleState.UpdateAvailable && GUILayout.Button("Update")) Run(() => InstallMany(new[] { module.id }));
-                    if (state == ModuleState.Modified && GUILayout.Button("Reinstall")) Run(() => InstallMany(new[] { module.id }, "Local edits in this module will be moved to Library/PixonTrash."));
-                    if (state == ModuleState.Unmanaged && GUILayout.Button("Adopt")) Run(() => { PixonInstaller.Adopt(root, module); ReloadState(); status = $"Adopted {module.id}."; });
-                    if (state == ModuleState.Unmanaged && GUILayout.Button("Replace")) Run(() => InstallMany(new[] { module.id }, "The existing folder will be moved to Library/PixonTrash.", true));
+                    if (state == ModuleState.Modified && GUILayout.Button("Reinstall")) Run(() => InstallMany(new[] { module.id }, "Local edits in this module will be moved to Library/CorruptedDesignTrash."));
+                    if (state == ModuleState.Unmanaged && GUILayout.Button("Adopt")) Run(() => { CorruptedDesignInstaller.Adopt(root, module); ReloadState(); status = $"Adopted {module.id}."; });
+                    if (state == ModuleState.Unmanaged && GUILayout.Button("Replace")) Run(() => InstallMany(new[] { module.id }, "The existing folder will be moved to Library/CorruptedDesignTrash.", true));
                     if (installed != null && GUILayout.Button("Uninstall")) Run(() => UninstallOne(module.id));
                 }
             }
@@ -663,9 +663,9 @@ namespace Pixon.Registry
 
         private void Refresh()
         {
-            PixonCatalogSource.Url = url;
-            PixonCatalogSource.Token = token;
-            catalog = cachedCatalog = PixonCatalogSource.LoadCatalog(url, token);
+            CorruptedDesignCatalogSource.Url = url;
+            CorruptedDesignCatalogSource.Token = token;
+            catalog = cachedCatalog = CorruptedDesignCatalogSource.LoadCatalog(url, token);
             ReloadState();
             status = $"{catalog.modules.Length} modules in the catalog.";
         }
@@ -673,7 +673,7 @@ namespace Pixon.Registry
         private void InstallMany(IEnumerable<string> ids, string warning = null, bool replaceUnmanaged = false)
         {
             var list = ids.ToList();
-            var plan = PixonRegistryController.PlanInstall(catalog, list, out var packages);
+            var plan = CorruptedDesignRegistryController.PlanInstall(catalog, list, out var packages);
             var toInstall = plan.Where(m => StateOf(m) != ModuleState.Installed).ToList();
             if (toInstall.Count == 0) return;
 
@@ -682,22 +682,22 @@ namespace Pixon.Registry
                 + (warning != null ? "\n\n" + warning : string.Empty);
             if (!EditorUtility.DisplayDialog("Install", message, "Install", "Cancel")) return;
 
-            var done = PixonRegistryController.Install(url, token, catalog, list, replaceUnmanaged);
+            var done = CorruptedDesignRegistryController.Install(url, token, catalog, list, replaceUnmanaged);
             ReloadState();
             status = "Installed: " + string.Join(", ", done);
         }
 
         private void UninstallOne(string id)
         {
-            var dependents = PixonInstaller.Dependents(installLock, new[] { id });
+            var dependents = CorruptedDesignInstaller.Dependents(installLock, new[] { id });
             if (dependents.Count > 0)
             {
                 EditorUtility.DisplayDialog("Uninstall", $"{id} is needed by {string.Join(", ", dependents)}. Uninstall those first.", "OK");
                 return;
             }
-            if (!EditorUtility.DisplayDialog("Uninstall", $"Move {id} to Library/PixonTrash? Code that uses it will stop compiling.", "Uninstall", "Cancel")) return;
+            if (!EditorUtility.DisplayDialog("Uninstall", $"Move {id} to Library/CorruptedDesignTrash? Code that uses it will stop compiling.", "Uninstall", "Cancel")) return;
 
-            var leftover = PixonRegistryController.Uninstall(id);
+            var leftover = CorruptedDesignRegistryController.Uninstall(id);
             ReloadState();
             status = leftover.Count == 0 ? $"Uninstalled {id}." : $"Uninstalled {id}; {leftover.Count} files that were not part of it stay in the folder.";
         }
@@ -709,32 +709,32 @@ namespace Pixon.Registry
             catch (Exception e)
             {
                 status = e.Message;
-                EditorUtility.DisplayDialog("Pixon Registry", e.Message, "OK");
+                EditorUtility.DisplayDialog("CorruptedDesign Registry", e.Message, "OK");
             }
             repaint();
         }
     }
 
-    /// <summary>The standalone Pixon/Registry window, used while the project has no Hub; once the Hub is installed the menu opens its Registry tab instead.</summary>
-    public class PixonRegistryWindow : EditorWindow
+    /// <summary>The standalone CorruptedDesign/Registry window, used while the project has no Hub; once the Hub is installed the menu opens its Registry tab instead.</summary>
+    public class CorruptedDesignRegistryWindow : EditorWindow
     {
-        private PixonRegistryView view;
+        private CorruptedDesignRegistryView view;
 
-        [MenuItem("Pixon/Registry")]
+        [MenuItem("CorruptedDesign/Registry")]
         public static void Open()
         {
             // The Hub is optional here, so it is reached by name; when it exists everything lives in its Registry tab.
-            var hub = Type.GetType("Pixon.Hub.PixonHubWindow, Pixon.Hub.Editor");
+            var hub = Type.GetType("CorruptedDesign.Hub.CorruptedDesignHubWindow, CorruptedDesign.Hub.Editor");
             var openTab = hub?.GetMethod("OpenTab", new[] { typeof(string) });
             if (openTab != null)
             {
                 openTab.Invoke(null, new object[] { "Registry" });
                 return;
             }
-            GetWindow<PixonRegistryWindow>("Pixon Registry").Show();
+            GetWindow<CorruptedDesignRegistryWindow>("CorruptedDesign Registry").Show();
         }
 
-        private void OnEnable() => view = new PixonRegistryView(Repaint);
+        private void OnEnable() => view = new CorruptedDesignRegistryView(Repaint);
 
         private void OnFocus() => view?.ReloadState();
 

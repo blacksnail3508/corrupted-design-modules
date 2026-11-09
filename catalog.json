@@ -13,11 +13,11 @@
             "companions": [],
             "requires": [],
             "packages": [],
-            "installPath": "Assets/0.GAME/0.Pixon/11.Pixon.AdsProvider",
+            "installPath": "Assets/0.GAME/0.CorruptedDesign/11.CorruptedDesign.AdsProvider",
             "extraPaths": [],
             "zip": "modules/AdsProvider-1.0.0.zip",
-            "sha256": "0a3c0c148da81881dafbab51fa029e9774d3fb7e7c94e0eed7c24ca36ac23337",
-            "size": 3473
+            "sha256": "9c5992b30db26f14120ab75139f6e206f821913bb8db695a5ff57caa79d4952e",
+            "size": 3710
         },
         {
             "id": "AnalyticAdapter",
@@ -28,11 +28,11 @@
             "companions": [],
             "requires": [],
             "packages": [],
-            "installPath": "Assets/0.GAME/0.Pixon/8.Pixon.AnalyticAdapter",
+            "installPath": "Assets/0.GAME/0.CorruptedDesign/8.CorruptedDesign.AnalyticAdapter",
             "extraPaths": [],
             "zip": "modules/AnalyticAdapter-1.0.0.zip",
-            "sha256": "f6301fea9009fb5cdfc8c3cb6a70100f3f2ac95248a0ba0560a565daaf33fe0e",
-            "size": 2673
+            "sha256": "77d79ef97506c2979c0a557ee29376cb9ef9de1eeb8b5c959c49b0ff08ae7834",
+            "size": 2905
         },
         {
             "id": "Audio",
@@ -58,11 +58,11 @@
                     "version": "17.0.4"
                 }
             ],
-            "installPath": "Assets/0.GAME/0.Pixon/2.Pixon.Audio",
+            "installPath": "Assets/0.GAME/0.CorruptedDesign/2.CorruptedDesign.Audio",
             "extraPaths": [],
             "zip": "modules/Audio-1.0.0.zip",
-            "sha256": "8473df26d4beaf3b14890b11dc3c813d51b3bd768439c1155f51f04eb0ad69c8",
-            "size": 9947
+            "sha256": "0d536fbc7120674235ad868c5370adcb06a51baa2e392c637316821a8687ea02",
+            "size": 13220
         },
         {
             "id": "Core",
@@ -85,11 +85,11 @@
                     "version": "3.2.1"
                 }
             ],
-            "installPath": "Assets/0.GAME/0.Pixon/15.Pixon.Core",
+            "installPath": "Assets/0.GAME/0.CorruptedDesign/15.CorruptedDesign.Core",
             "extraPaths": [],
             "zip": "modules/Core-1.0.1.zip",
-            "sha256": "c6f7bf31d1f4713bf704adb0930f4d77dc91520faeb1d39e7c166683d214733f",
-            "size": 6149
+            "sha256": "3d4dd0941a83af2397668b0228f51823da686af04287fe01153741237a996cf3",
+            "size": 6987
         },
         {
             "id": "DataManager",
@@ -102,6 +102,7 @@
                 "Debug",
                 "Delay",
                 "Observer",
+                "TrustedClock",
                 "Utils"
             ],
             "companions": [
@@ -121,11 +122,11 @@
                     "version": "3.2.1"
                 }
             ],
-            "installPath": "Assets/0.GAME/0.Pixon/0.Pixon.DataManager",
+            "installPath": "Assets/0.GAME/0.CorruptedDesign/0.CorruptedDesign.DataManager",
             "extraPaths": [],
             "zip": "modules/DataManager-1.0.0.zip",
-            "sha256": "2ab5c25d04f5750e0987e92ea798bc4c676218d953415e4da95e114f56819131",
-            "size": 78058
+            "sha256": "1125418287079741498a0a5dccbd83b9cd5ba06250c2d864decc0bf4383e83de",
+            "size": 81526
         },
         {
             "id": "Debug",
@@ -142,11 +143,11 @@
                 }
             ],
             "packages": [],
-            "installPath": "Assets/0.GAME/0.Pixon/3.Pixon.Debug",
+            "installPath": "Assets/0.GAME/0.CorruptedDesign/3.CorruptedDesign.Debug",
             "extraPaths": [],
             "zip": "modules/Debug-1.0.0.zip",
-            "sha256": "0aea6a52fd2108a10051780d7c6c34a34b0b5a301718d96b7c74e9afeec3336b",
-            "size": 1894
+            "sha256": "e26092e877527639b70482cc0ff28c341c170ee9c076139ee8d2321880c61ce9",
+            "size": 2120
         },
         {
             "id": "Define",
@@ -157,11 +158,11 @@
             "companions": [],
             "requires": [],
             "packages": [],
-            "installPath": "Assets/0.GAME/0.Pixon/13.Pixon.Define",
+            "installPath": "Assets/0.GAME/0.CorruptedDesign/13.CorruptedDesign.Define",
             "extraPaths": [],
             "zip": "modules/Define-1.0.0.zip",
-            "sha256": "f2400dcde77caaafb18e561fc5e531bdf49e04648d510774fc1742a3dd85f0cb",
-            "size": 4037
+            "sha256": "c30f0a20364b40b6e4bb7ed9c365d1d7c97b579f637574ca28c775bb5083a798",
+            "size": 4344
         },
         {
             "id": "Delay",
@@ -172,11 +173,11 @@
             "companions": [],
             "requires": [],
             "packages": [],
-            "installPath": "Assets/0.GAME/0.Pixon/12.Pixon.Delay",
+            "installPath": "Assets/0.GAME/0.CorruptedDesign/12.CorruptedDesign.Delay",
             "extraPaths": [],
             "zip": "modules/Delay-1.0.0.zip",
-            "sha256": "0526ec23a808e1bf2a1c6f535c15894db9789c482215bbb52f8d7f2063be363b",
-            "size": 4620
+            "sha256": "a524879646a920dfb158ea46f3f6a76ab66082118ae7757d58b14f449fdfed8a",
+            "size": 5003
         },
         {
             "id": "Features",
@@ -188,6 +189,7 @@
                 "Debug",
                 "Delay",
                 "Observer",
+                "TrustedClock",
                 "Utils"
             ],
             "companions": [],
@@ -199,11 +201,11 @@
                 }
             ],
             "packages": [],
-            "installPath": "Assets/0.GAME/0.Pixon/4.Pixon.Features",
+            "installPath": "Assets/0.GAME/0.CorruptedDesign/4.CorruptedDesign.Features",
             "extraPaths": [],
             "zip": "modules/Features-1.0.0.zip",
-            "sha256": "4663bd7b73fa88fc58d5b12cb1e0bcf9d0a00b5b8ae7356502d6dc8bacd3d061",
-            "size": 15658
+            "sha256": "1be9e20d07a8ca1d3b6b480b65f65a6d92cf8555d79aa3b7196a48ff956df1ed",
+            "size": 16602
         },
         {
             "id": "GMTool",
@@ -233,26 +235,26 @@
                     "version": "1.19.0"
                 }
             ],
-            "installPath": "Assets/0.GAME/0.Pixon/18.Pixon.GMTool",
+            "installPath": "Assets/0.GAME/0.CorruptedDesign/18.CorruptedDesign.GMTool",
             "extraPaths": [],
             "zip": "modules/GMTool-2.0.0.zip",
-            "sha256": "fc54b62f81960e6011e45c96aad5afaa5d8ac641daa91b91bde7531edd264e50",
-            "size": 23373
+            "sha256": "d18728f6d8e5d038d480f3690d4c098a30286cf7498fdfafbf48babfa6aa6676",
+            "size": 31887
         },
         {
             "id": "Hub",
-            "name": "Pixon Hub",
+            "name": "CorruptedDesign Hub",
             "version": "1.0.2",
-            "description": "Pixon Hub window (modules, plugins, tools, create menu, health) and the Pixon Registry installer.",
+            "description": "CorruptedDesign Hub window (modules, plugins, tools, create menu, health) and the CorruptedDesign Registry installer.",
             "dependencies": [],
             "companions": [],
             "requires": [],
             "packages": [],
-            "installPath": "Assets/0.GAME/0.Pixon/Editor/Hub",
+            "installPath": "Assets/0.GAME/0.CorruptedDesign/Editor/Hub",
             "extraPaths": [],
             "zip": "modules/Hub-1.0.2.zip",
-            "sha256": "6eed161920caef1d4103e43209c47dba52097dc1904421889e6bd934d790dfc2",
-            "size": 43703
+            "sha256": "76e182fa6caea7977a603c180f6d39608649b628144f22e3393ec136e1351709",
+            "size": 45326
         },
         {
             "id": "IAP",
@@ -280,17 +282,17 @@
                     "version": "https://github.com/Cysharp/UniTask.git?path=src/UniTask/Assets/Plugins/UniTask#2.5.10"
                 }
             ],
-            "installPath": "Assets/0.GAME/0.Pixon/14.Pixon.IAP",
+            "installPath": "Assets/0.GAME/0.CorruptedDesign/14.CorruptedDesign.IAP",
             "extraPaths": [],
             "zip": "modules/IAP-1.0.0.zip",
-            "sha256": "558837fe76210080c92c027ec03fd9bd2ce3286366a0a2b4f390441b5a228a89",
-            "size": 24684
+            "sha256": "4096f3c72bc74f174561f8e28c37005a7857e36f389e8f591f61362362c736aa",
+            "size": 28476
         },
         {
             "id": "LevelSystem",
             "name": "LevelSystem",
             "version": "1.0.0",
-            "description": "Level progression, looping, played-level tracking, remote level bundles.",
+            "description": "Level progression, looping, played-level tracking, built-in level preloading, and remote level sets (manifest of level ranges swapped in by number, prefetched to disk, Firebase Storage or local folder).",
             "dependencies": [
                 "DataManager",
                 "Debug",
@@ -310,26 +312,11 @@
                     "version": "3.2.1"
                 }
             ],
-            "installPath": "Assets/0.GAME/0.Pixon/10.Pixon.LevelSystem",
+            "installPath": "Assets/0.GAME/0.CorruptedDesign/10.CorruptedDesign.LevelSystem",
             "extraPaths": [],
             "zip": "modules/LevelSystem-1.0.0.zip",
-            "sha256": "a3a9c6377ba99f2440ba8ad658a5dcebcdbddd3754a17d8c9f16fb35d3d49fbe",
-            "size": 6428
-        },
-        {
-            "id": "Logo",
-            "name": "Logo",
-            "version": "1.0.0",
-            "description": "Pixon splash logo assets.",
-            "dependencies": [],
-            "companions": [],
-            "requires": [],
-            "packages": [],
-            "installPath": "Assets/0.GAME/0.Pixon/00.Logo",
-            "extraPaths": [],
-            "zip": "modules/Logo-1.0.0.zip",
-            "sha256": "3046e3df896f44fee37add330805530faff2e056c79b54dbbd4c5b60dd95d0cf",
-            "size": 52082
+            "sha256": "b274221403378a8d16ab42ed031bd5e193547b0d0228d113a4760a97ce95e2c5",
+            "size": 27623
         },
         {
             "id": "Observer",
@@ -346,11 +333,11 @@
                 }
             ],
             "packages": [],
-            "installPath": "Assets/0.GAME/0.Pixon/7.Pixon.Observer",
+            "installPath": "Assets/0.GAME/0.CorruptedDesign/7.CorruptedDesign.Observer",
             "extraPaths": [],
             "zip": "modules/Observer-1.0.0.zip",
-            "sha256": "7985ed46a3d4b736417d17e17a769f9fbf6f07d00597895b5691b55d175546ad",
-            "size": 8157
+            "sha256": "428f94ece9951121fd6546b9afc055b147cfde0df5c42054681810a220f4981a",
+            "size": 8917
         },
         {
             "id": "RemoteConfig",
@@ -371,11 +358,11 @@
                     "version": "3.2.1"
                 }
             ],
-            "installPath": "Assets/0.GAME/0.Pixon/9.Pixon.RemoteConfig",
+            "installPath": "Assets/0.GAME/0.CorruptedDesign/9.CorruptedDesign.RemoteConfig",
             "extraPaths": [],
             "zip": "modules/RemoteConfig-1.0.0.zip",
-            "sha256": "6617a0af3b637730f022507595110c812b6fedbc3ccad7a136c0a9fdb3dde30c",
-            "size": 18717
+            "sha256": "2f097453477ecf2cdca949fd013fde30106a97e04e5b3eba5f67b162972b82fd",
+            "size": 20382
         },
         {
             "id": "SceneManager",
@@ -394,11 +381,11 @@
             "companions": [],
             "requires": [],
             "packages": [],
-            "installPath": "Assets/0.GAME/0.Pixon/5.Pixon.SceneManager",
+            "installPath": "Assets/0.GAME/0.CorruptedDesign/5.CorruptedDesign.SceneManager",
             "extraPaths": [],
             "zip": "modules/SceneManager-1.0.0.zip",
-            "sha256": "eafd20f4135f9ec111c065bf3f3a93e711c995f5da0aafdf211d479e9e42ade7",
-            "size": 5214
+            "sha256": "0771b82f5a5bf289221ad0672de6015d64114f3ac17f605d006cf191ea3f7536",
+            "size": 5860
         },
         {
             "id": "Stamina",
@@ -409,7 +396,8 @@
                 "Debug",
                 "Delay",
                 "Features",
-                "Observer"
+                "Observer",
+                "TrustedClock"
             ],
             "companions": [],
             "requires": [
@@ -420,17 +408,17 @@
                 }
             ],
             "packages": [],
-            "installPath": "Assets/0.GAME/0.Pixon/6.Pixon.Stamina",
+            "installPath": "Assets/0.GAME/0.CorruptedDesign/6.CorruptedDesign.Stamina",
             "extraPaths": [],
             "zip": "modules/Stamina-1.0.0.zip",
-            "sha256": "23cb3f4436b8df907707113c5e9d7f393b9acfabd6fa1fbe37ea5a89620b5499",
-            "size": 5674
+            "sha256": "27f5e302de6ecb5c9b24bb5794e73acac68678a100c4edac2e02e7556224a68e",
+            "size": 6191
         },
         {
             "id": "TemplateKit",
             "name": "Template UI Kit",
             "version": "1.0.1",
-            "description": "The Sand Around UI kit and sound effects: popups, views, shared prefabs, fonts, sprites, audio library and sfx, touch vfx. Needs the Pixon modules it is built on. After installing, register the popups and views in Addressables with address = type FullName (Pixon/UI tools lists the ones that are missing).",
+            "description": "The template UI kit and sound effects: popups, views, shared prefabs, fonts, sprites, audio library and sfx, touch vfx. Needs the CorruptedDesign modules it is built on. After installing, register the popups and views in Addressables with address = type FullName (CorruptedDesign/UI tools lists the ones that are missing).",
             "dependencies": [
                 "AdsProvider",
                 "AnalyticAdapter",
@@ -501,11 +489,26 @@
                 "Assets/1.SPRITES",
                 "Assets/2.Animations",
                 "Assets/VFX",
-                "Assets/Sand Around"
+                "Assets/KitArt"
             ],
             "zip": "modules/TemplateKit-1.0.1.zip",
-            "sha256": "3a1de4379f0b2a6055f73e6febab829cdee72d11af86a94c6c2608427cc7ca5b",
-            "size": 21297092
+            "sha256": "bfe99afd946307efb5300c8885c60f0329f495f8e3b350b479853ab219599b39",
+            "size": 21297293
+        },
+        {
+            "id": "TrustedClock",
+            "name": "TrustedClock",
+            "version": "1.0.0",
+            "description": "Clock that runs on time since boot, so changing the device date does not move game timers.",
+            "dependencies": [],
+            "companions": [],
+            "requires": [],
+            "packages": [],
+            "installPath": "Assets/0.GAME/0.CorruptedDesign/17.CorruptedDesign.TrustedClock",
+            "extraPaths": [],
+            "zip": "modules/TrustedClock-1.0.0.zip",
+            "sha256": "870002c6e936bb6147dd28c774d301ba368f63e8d6efde965bc45c673e323bb9",
+            "size": 8199
         },
         {
             "id": "UI",
@@ -561,26 +564,28 @@
                     "version": "https://github.com/mob-sakai/UIEffect.git?path=Packages/src#5.9.0"
                 }
             ],
-            "installPath": "Assets/0.GAME/0.Pixon/1.Pixon.UI",
+            "installPath": "Assets/0.GAME/0.CorruptedDesign/1.CorruptedDesign.UI",
             "extraPaths": [],
             "zip": "modules/UI-1.0.0.zip",
-            "sha256": "c852e8e5e9bd77352a092c130260e058d84628a8b214e4f75238a4d58252e9a7",
-            "size": 44700
+            "sha256": "98a09f85c56f14294e80ca04ac7ca0b4d2a7f3d8158f7514919bf42af7f54e28",
+            "size": 49988
         },
         {
             "id": "Utils",
             "name": "Utils",
             "version": "1.0.0",
             "description": "TimeUtils, StringExtensions and ExtraUtilities: small helpers the other modules share.",
-            "dependencies": [],
+            "dependencies": [
+                "TrustedClock"
+            ],
             "companions": [],
             "requires": [],
             "packages": [],
-            "installPath": "Assets/0.GAME/0.Pixon/16.Pixon.Utils",
+            "installPath": "Assets/0.GAME/0.CorruptedDesign/16.CorruptedDesign.Utils",
             "extraPaths": [],
             "zip": "modules/Utils-1.0.0.zip",
-            "sha256": "35fcc7159b46265b9d35dda5f54c01767a0f83ab09081b6fbdceccba084579be",
-            "size": 5134
+            "sha256": "71dfd9e8cc8baf6e1702172e9c7b9640dc6d4b359f3b4b9591bde782a6302c88",
+            "size": 5553
         },
         {
             "id": "com.unity.uiextensions",
@@ -596,11 +601,11 @@
                     "version": "2.0.0"
                 }
             ],
-            "installPath": "Assets/0.GAME/0.Pixon/com.unity.uiextensions",
+            "installPath": "Assets/0.GAME/0.CorruptedDesign/com.unity.uiextensions",
             "extraPaths": [],
             "zip": "modules/com.unity.uiextensions-1.0.0.zip",
-            "sha256": "f708a1cef300af8085c0810b75de7cb040648a655b0b221bb301d56700d7c284",
-            "size": 475390
+            "sha256": "8fcb9f92ffc88bf18d22121f7d1be9dccdb6815cb745b298523c48faf9491d95",
+            "size": 484829
         }
     ]
 }
